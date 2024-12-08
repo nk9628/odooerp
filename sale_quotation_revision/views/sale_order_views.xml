@@ -8,7 +8,7 @@
         <field name="name">sale.order.line.tree</field>
         <field name="model">sale.order.line</field>
         <field name="arch" type="xml">
-            <tree string="Sales Order Lines" create="false" default_group_by="order_id">
+            <list string="Sales Order Lines" create="false" default_group_by="order_id">
                 <field name="order_id"/>
                 <field name="order_partner_id"/>
                 <field name="name"/>
@@ -21,7 +21,7 @@
                 <field name="qty_to_invoice" column_invisible="True"/>
                 <field name="price_subtotal" sum="Total" widget="monetary"/>
                 <field name="currency_id" column_invisible="True"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -67,12 +67,12 @@
 
             <page name="sale_history" string="History Revisions">
                 <field name="related_orders">
-                    <tree>
+                    <list>
                         <field name="date_order"/>
                         <field name='name'/>
                         <field name="partner_id"/>
                         <field name='user_id'/>
-                    </tree>
+                    </list>
                 </field>
             </page>
         </xpath>
@@ -99,7 +99,7 @@
         <field name="name">Quotations</field>
         <field name="res_model">sale.order</field>
         <field name="view_id" ref="sale.view_quotation_tree_with_onboarding"/>
-        <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+        <field name="view_mode">list,kanban,form,calendar,pivot,graph,activity</field>
         <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>
         <field name="context">{'search_default_my_quotation': 1}</field>
         <field name="domain">[('is_revised', '=', False)]</field>

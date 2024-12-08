@@ -206,7 +206,9 @@
                         <thead class="fw-bold" style="border-bottom:0px; !important">
                             <tr>
                                 <td name="th_option_name" class="text-start" style="color:#2f6bc6;">Description</td>
-                                <td t-if="has_option_discount" name="th_option_discount" groups="product.group_discount_per_so_line" class="text-start" style="color:#2f6bc6;"> Disc.%</td>
+                                <td t-if="has_option_discount" name="th_option_discount" class="text-start" style="color:#2f6bc6;"> Disc.%</td>
+<!--                                <td t-if="has_option_discount" name="th_option_discount" groups="product.group_discount_per_so_line" class="text-start" style="color:#2f6bc6;"> Disc.%</td>-->
+
                                 <td name="th_option_price_unit" class="text-end" style="color:#2f6bc6;">Unit Price</td>
                             </tr>
                         </thead>
@@ -215,7 +217,8 @@
                                 <td name="td_option_name">
                                     <span t-field="option.name">Extra Chips</span>
                                 </td>
-                                <td t-if="has_option_discount" name="td_option_discount" groups="product.group_discount_per_so_line">
+<!--                                <td t-if="has_option_discount" name="td_option_discount" groups="product.group_discount_per_so_line">-->
+                                <td t-if="has_option_discount" name="td_option_discount" >
                                     <strong t-if="option.discount != 0.0" class="text-info">
                                         <t t-out="((option.discount % 1) and '%s' or '%d') % option.discount">-</t>%
                                     </strong>
