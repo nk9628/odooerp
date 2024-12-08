@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+    	<!-- sale order mail template -->
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', '=', 'mail_template_sale_confirmation')]" />
+            </function>
+            <value eval="{'noupdate': False}" />
+        </function>
+        <record id="sale.mail_template_sale_confirmation" model="mail.template">
+            <field name="subject">{{ object.subject.name }}</field>
+        </record>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', '=', 'mail_template_sale_confirmation')]" />
+            </function>
+            <value eval="{'noupdate': True}" />
+        </function>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', '=', 'email_template_edi_sale')]" />
+            </function>
+            <value eval="{'noupdate': False}" />
+        </function>
+        <record id="sale.email_template_edi_sale" model="mail.template">
+            <field name="subject">{{ object.subject.name }}</field>
+        </record>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', '=', 'email_template_edi_sale')]" />
+            </function>
+            <value eval="{'noupdate': True}" />
+        </function>
+    	<!-- purchase order mail template -->
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', '=', 'email_template_edi_purchase')]" />
+            </function>
+            <value eval="{'noupdate': False}" />
+        </function>
+        <record id="purchase.email_template_edi_purchase" model="mail.template">
+            <field name="subject">{{ object.subject.name }}</field>
+        </record>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', '=', 'email_template_edi_purchase')]" />
+            </function>
+            <value eval="{'noupdate': True}" />
+        </function>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', '=', 'email_template_edi_purchase_done')]" />
+            </function>
+            <value eval="{'noupdate': False}" />
+        </function>
+        <record id="purchase.email_template_edi_purchase_done" model="mail.template">
+            <field name="subject">{{ object.subject.name }}</field>
+        </record>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', '=', 'email_template_edi_purchase_done')]" />
+            </function>
+            <value eval="{'noupdate': True}" />
+        </function>
+        <!-- invoice mail template -->
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', '=', 'email_template_edi_invoice')]" />
+            </function>
+            <value eval="{'noupdate': False}" />
+        </function>
+        <record id="account.email_template_edi_invoice" model="mail.template">
+            <field name="subject">{{ object.subject.name }}</field>
+        </record>
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('name', '=', 'email_template_edi_invoice')]" />
+            </function>
+            <value eval="{'noupdate': True}" />
+        </function>
+
+    </data>
+</odoo>

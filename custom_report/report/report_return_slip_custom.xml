@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_return_slip_inherit" inherit_id="stock.report_return_slip">
+        <xpath expr="//t[@t-call='web.external_layout']" position="replace">
+            <t t-call="custom_report.custom_report_layout">
+            	<div class="page">
+                    <div class="oe_structure"/>
+                    <div class="row mt8">
+                        <div class="col-8">
+                            <h2>
+                                <span>RETURN OF <span t-out="o.name">Default Return Name</span></span>
+                            </h2>
+                            <p>
+                                Please put this document inside your return parcel.<br/>
+                                Your parcel must be sent to this address:
+                            </p>
+                            <span t-field="o.location_id.warehouse_id.partner_id"
+                                t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'>Demo Address and Name</span>
+                        </div>
+                        <div class="col-4 text-center mt-4">
+                            <div>
+                                <span t-field="o.name" t-options="{'widget': 'barcode', 'img_style': 'width:100%;'}">Default Barcode Name</span>
+                                <span t-out="o.name">Default Name</span>
+                            </div>
+                            <div style="margin-top:200px;">
+                                <span t-out="'O-BTN.return'" t-options="{'widget': 'barcode', 'img_style': 'width:100%;'}">Default O-BTN.return Barcode</span>
+                                <span>O-BTN.return</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="oe_structure"/>
+                </div>
+            </t>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="purchase_order_report_custom">
+        <t t-call="custom_report.custom_report_layout">
+            <div class="page">
+                <div class="oe_structure" />
+                <div class="row justify-content-start mt-1" style="color: black;">
+                    <div class="col-6">
+                        <div class="row">
+                            <div>
+                                <strong>
+                                    <span t-if="o.state in ['draft','sent']">Quotation Date:</span>
+                                    <span t-else="">Order Date:</span>
+                                </strong>
+                                <span t-field="o.date_order" />
+                            </div>
+                        </div>
+                        <div>
+                            <div t-if="o.show_subject">
+                                <strong>Subject:</strong>
+                                <span t-field="o.subject" />
+                            </div>
+                        </div>
+                        <div>
+                            <div t-if="o.show_project">
+                                <strong>Project:</strong>
+                                <span t-field="o.project" />
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <strong>Ref:</strong>
+                                <span t-field="o.name" />
+                            </div>
+                        </div>
+                        <div>
+                            <div t-if="o.show_section">
+                                <strong>Section:</strong>
+                                <span t-field="o.cust_section" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div>
+                                <strong>To:</strong>&#160;&#160;&#160;
+                                <span t-field="o.partner_id" />
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <strong>Address:</strong>
+                                <t t-if="o.partner_id.street">
+                                    <div style="margin-left:73px;margin-top:-21px;" t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["address", "vat"], "no_marker": True}' />
+                                </t>
+                                <t t-else="" />
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <strong>Contact:</strong>
+                                <div style="margin-left:73px;margin-top:-21px;" t-field="o.partner_id" t-options='{"widget": "contact", "fields": ["phone"], "phone_icons": True, "no_marker": True}' />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <h2>
+                        <span style="color:#2f6bc6;" t-if="o.state in ['draft', 'sent', 'to approve']">Request for Quotation</span>
+                        <span style="color:#2f6bc6;" t-if="o.state in ['purchase', 'done']">Purchase Order</span>
+                        <span style="color:#2f6bc6;" t-if="o.state == 'cancel'">Cancelled Purchase Order
+                        </span>
+                    </h2>
+                </div>
+                <div class="row">
+                    <span style="color:black;" t-field="o.greeting_text" />
+                </div>
+                <table class="table-borderless" style="margin-top:40px;font-size:14px;line-height: 20px;width:100%;">
+                    <thead style="border-bottom:0px; !important">
+                        <tr style="width:100%;">
+                            <th name="th_no" t-if="o.show_slno" style="width:3%;color:#2f6bc6;text-align:left;padding-left:3px;">#</th>
+                            <th name="th_item" t-if="o.show_description" style="width:50%;color:#2f6bc6;text-align:left;padding-left:3px;">Description</th>
+                            <th t-if="o.show_qty" name="th_qty" style="width:10%;color:#2f6bc6;text-align:right;padding-right:3px;">Quantity</th>
+                            <th name="th_price" t-if="o.show_rate" style="width:10%;color:#2f6bc6;text-align:right;padding-right:3px;">Unit Price</th>
+                            <th name="th_tax" t-if="o.show_taxes" style="width:10%;color:#2f6bc6;text-align:right;padding-right:3px;">Taxes</th>
+                            <th name="th_amount" t-if="o.show_amount" style="width:15%;color:#2f6bc6;text-align:right;padding-right:3px;">AMOUNT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="sequence_number" t-value="1" />
+                        <t t-set="current_subtotal" t-value="0"/>
+                        <t t-foreach="o.order_line.filtered(lambda line: not line.product_id.type == 'service')" t-as="line">
+                            <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"/>
+                            <tr t-att-class="'bg-200 fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
+                                <t t-if="not line.display_type">
+                                    <tr style="line-height: 25px;">
+                                        <td t-if="o.show_slno" class="text-start" style="color:black;padding-left:3px;">
+                                            <span t-out="sequence_number" />
+                                            <t t-set="sequence_number" t-value="sequence_number + 1" />
+                                        </td>
+                                        <td t-if="o.show_description" class="text-start" style="color:black;padding-left:3px;">
+                                            <span t-field="line.name" />
+                                        </td>
+                                        <td t-if="o.show_qty" class="text-end" style="color:black;padding-right:3px;">
+                                            <span t-field="line.product_uom_qty" />
+                                            <span t-field="line.product_uom" />
+                                        </td>
+                                        <td t-if="o.show_rate" class="text-end" style="color:black;padding-right:3px;">
+                                            <span t-field="line.price_unit" />
+                                        </td>
+                                        <td t-if="o.show_taxes" class="text-end" style="color:black;padding-right:3px;">
+                                            <span t-field="line.tax_id" />
+                                        </td>
+                                        <td t-if="o.show_amount" class="text-end" style="border-top:1px solid darkgray;padding-right:3px;">
+                                            <span t-field="line.price_subtotal" />
+                                        </td>
+                                    </tr>
+                                </t>
+                                <t t-elif="line.display_type == 'line_section'" >
+                                    <td name="td_section_line" colspan="99" style="background-color: #4d5356 !important; color: white !important;">
+                                        <span t-field="line.name" style="margin-left: 4px !important;">A section title</span>
+                                    </td>
+                                    <t t-set="current_section" t-value="line"/>
+                                    <t t-set="current_subtotal" t-value="0"/>
+                                </t>
+                                <t t-elif="line.display_type == 'line_note'">
+                                    <td name="td_note_line" colspan="99" style=" padding-left: 5px; ">
+                                        <span t-field="line.name" >A note, whose content usually applies to the section or product above.</span>
+                                    </td>
+                                </t>
+                            </tr>
+                            <t t-if="current_section and (line_last or o.order_line[line_index+1].display_type == 'line_section')">
+                            <tr class="is-subtotal text-end">
+                                <td colspan="99" id="subtotal">
+                                    <strong class="mr16">Subtotal</strong>
+                                    <span
+                                        t-esc="current_subtotal"
+                                        t-options='{"widget": "monetary", "display_currency": o.currency_id}' style="margin-right: 3px !important;"
+                                    />
+                                </td>
+                            </tr>
+                        </t>
+                        </t>
+                    </tbody>
+                </table>
+                <div class="row justify-content-start mt-5" style="page-break-inside: avoid;page-break-before: auto;page-break-after:avoid;">
+                    <div class="col-6" />
+                    <div class="col-6">
+                        <t t-if="o.show_taxes">
+                            <table class="table table-sm table-borderless">
+                                <!-- <tr t-if="o.show_discount" style="text-align:left;">
+                                    <td class="fw-bold" style="background-color:white;color:black">
+                                        Discount
+                                    </td>
+                                    <td style="background-color:white;text-align:right;">
+                                        <strong><span t-out="abs(o.get_service_product_total(o))" /></strong>
+                                    </td>
+                                </tr> -->
+                                <t t-set="tax_totals" t-value="o.tax_totals"/>
+                                <t t-call="sale.document_tax_totals"/>
+                            </table>
+                            <span style="color:#2f6bc6;">
+                                <t t-out="o.currency_id.amount_to_text(o.amount_total)" />
+                            </span>
+                        </t>
+                        <t t-else="">
+                            <table class="table table-borderless">
+                                <tbody>
+                                    <!-- <tr t-if="o.show_discount" style="text-align:right;">
+                                        <td class="fw-bold" style="background-color:white;color:black">
+                                            Discount
+                                        </td>
+                                        <td style="background-color:white;">
+                                            <strong><span t-out="abs(o.get_service_product_total(o))" /></strong>
+                                        </td>
+                                    </tr> -->
+                                    <tr style="text-align:right;">
+                                        <td class="fw-bold">
+                                            Total
+                                        </td>
+                                        <td>
+                                            <strong><span style="color:white;" t-field="o.amount_total" /></strong>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <span style="color:#2f6bc6;">
+                                <t t-out="o.currency_id.amount_to_text(o.amount_total)" />
+                            </span>
+                        </t>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12" style="font-size:13px">
+                        <span t-field="o.notes" />
+                    </div>
+                </div>
+                <div class="mt-3" style="color:black;font-size:16px;">
+                    <div class="row">
+                        <div class="col-12">
+                            <span t-field="o.bank_details" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-9" style="color:black;font-size:16px;">
+                                    <div class="row">
+                                        <t t-if="o.creation_account"><strong>Prepared By:&#160;</strong> <br/> <span t-if="o.user_id" t-esc="o.user_id.name"  style="width: 593px Important;"/></t>
+                                    </div>
+                                    <div class="row">
+                                        <t>
+<!--                                            <strong>Signature:&#160;</strong>  -->
+                                            <img t-if="o.user_id.custom_signature and o.cus_signature" t-att-src="image_data_uri(o.user_id.custom_signature)" style=" width: 150px; margin-left: 1px; height: 150px; "/>
+                                        </t>
+                                    </div>
+<!--                                    <div class="row">-->
+<!--                                        <t t-if="o.show_prepared"><strong>Prepared By:&#160;</strong></t>-->
+<!--                                    </div>-->
+<!--                                    <div class="row" style="width: 100% !important;">-->
+<!--                                        <t><strong>Prepared By:&#160;</strong> <br/> <span t-if="o.user_id" t-esc="o.user_id.name" /></t>-->
+<!--                                    </div>-->
+<!--                                    <div class="row">-->
+<!--                                        <t>-->
+<!--&lt;!&ndash;                                            <strong>Signature:&#160;</strong> &ndash;&gt;-->
+<!--&lt;!&ndash;                                            <img t-if="o.user_id.custom_signature and
+" t-att-src="image_data_uri(o.user_id.custom_signature)" style=" width: 150px; margin-left:1px; height: 150px; "/>&ndash;&gt;-->
+<!--                                        </t>-->
+<!--                                    </div>-->
+                                </div>
+<!--                                <div class="col-3" style="color:black;font-size:16px;">-->
+<!--                                    <div class="row">-->
+<!--                                        <t t-if="o.show_approved"><strong>Approved By:&#160;</strong></t>-->
+<!--                                    </div>-->
+<!--                                    <div class="row">-->
+<!--                                        <strong>Stamp + Signature:&#160;</strong>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="custom_purchase_order_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="custom_report.purchase_order_report_custom" t-lang="lang" />
+            </t>
+        </t>
+    </template>
+</odoo>
+

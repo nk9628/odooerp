@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="custom_paperformat" model="report.paperformat">
+            <field name="name">Custom Paperformat</field>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">38</field>
+            <field name="margin_bottom">28</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_spacing">44</field>
+            <field name="dpi">90</field>
+        </record>
+        <record id="sale.action_report_saleorder" model="ir.actions.report">
+            <field name="report_name">custom_report.custom_sale_order_report</field>
+            <field name="report_file">custom_report.custom_sale_order_report</field>
+            <field name="paperformat_id" ref="custom_report.custom_paperformat" />
+        </record>
+        <record id="sale_pdf_quote_builder.action_report_saleorder_raw" model="ir.actions.report">
+            <field name="report_name">custom_report.custom_sale_order_report</field>
+            <field name="report_file">custom_report.custom_sale_order_report</field>
+            <field name="paperformat_id" ref="custom_report.custom_paperformat" />
+        </record>
+        <record id="sale.action_report_pro_forma_invoice" model="ir.actions.report">
+            <field name="report_name">custom_report.custom_sale_order_report</field>
+            <field name="report_file">custom_report.custom_sale_order_report</field>
+            <field name="paperformat_id" ref="custom_report.custom_paperformat" />
+        </record>
+        <record id="account.account_invoices" model="ir.actions.report">
+            <field name="report_name">custom_report.custom_invoice_report</field>
+            <field name="report_file">custom_report.custom_invoice_report</field>
+            <field name="paperformat_id" ref="custom_report.custom_paperformat" />
+        </record>
+        <record id="account.action_account_original_vendor_bill" model="ir.actions.report">
+            <field name="report_name">custom_report.custom_invoice_report</field>
+            <field name="report_file">custom_report.custom_invoice_report</field>
+            <field name="paperformat_id" ref="custom_report.custom_paperformat" />
+        </record>
+        <record id="purchase.action_report_purchase_order" model="ir.actions.report">
+            <field name="report_name">custom_report.custom_purchase_order_report</field>
+            <field name="report_file">custom_report.custom_purchase_order_report</field>
+            <field name="paperformat_id" ref="custom_report.custom_paperformat" />
+        </record>
+        <record id="purchase.report_purchase_quotation" model="ir.actions.report">
+            <field name="report_name">custom_report.custom_purchase_order_report</field>
+            <field name="report_file">custom_report.custom_purchase_order_report</field>
+            <field name="paperformat_id" ref="custom_report.custom_paperformat" />
+        </record>
+        <record id="account.action_report_payment_receipt" model="ir.actions.report">
+            <field name="report_name">custom_report.custom_payment_receipt</field>
+            <field name="report_file">custom_report.custom_payment_receipt</field>
+            <field name="paperformat_id" ref="custom_report.custom_paperformat" />
+        </record>
+        <!-- <record id="stock.action_report_picking" model="ir.actions.report">
+            <field name="paperformat_id" ref="custom_report.custom_paperformat" />
+        </record>
+        <record id="stock.action_report_delivery" model="ir.actions.report">
+            <field name="paperformat_id" ref="custom_report.custom_paperformat" />
+        </record>
+        <record id="stock.return_label_report" model="ir.actions.report">
+            <field name="paperformat_id" ref="custom_report.custom_paperformat" />
+        </record> -->
+    </data>
+</odoo>

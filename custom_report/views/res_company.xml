@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_company_form_view_inh" model="ir.ui.view">
+        <field name="name">res.company.form.inh</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page name="report_templates" string="Report Customization">
+                    <group>
+                        <group>
+                            <field name="file_name" invisible="1" />
+                            <field name="watermark_pdf" filename="file_name" widget="pdf_viewer" />
+                        </group>
+                        <group>
+                            <field name="report_header" placeholder="e.g. Global Business Solutions" options="{'resizable': false}"/>
+                            <field name="report_footer" string="Footer" options="{'resizable': false}"/>
+                            <field name="caption_color_picker" widget="color" invisible="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <odoo>
+    <record id="view_users_signature_form" model="ir.ui.view">
+        <field name="name">res.users.form.signature</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='signature']" position="after">
+                <group>
+                    <field name="custom_signature" widget="image"/>
+                </group>
+
+            </xpath>
+        </field>
+    </record>
+</odoo>
+</odoo>

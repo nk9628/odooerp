@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+        <record id="account_journal_dashboard_kanban_view_custom" model="ir.ui.view">
+            <field name="name">account.journal.dashboard.kanban.custom</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.account_journal_dashboard_kanban_view"/>
+            <field name="arch" type="xml">
+                <templates>
+                    <xpath expr="//t[@t-name='kanban-box']/div/div/div/div[@class='o_kanban_primary_right']" position="replace">
+                        <div class="col-12 col-sm-7 o_kanban_primary_right" style="display: none !important;">
+                            <t t-call="HasSequenceHoles"/>
+                        </div>
+
+                    </xpath>
+                    <t t-name="HasSequenceHoles">
+                        <a t-if="dashboard.has_sequence_holes"
+                           name="show_sequence_holes"
+                           type="object"
+                           class="text-warning"
+                           title="Gaps due to canceled invoices, deleted entries or manual errors in open period." style="display: none !important;">
+                            Gaps in the sequence
+                        </a>
+                    </t>
+                </templates>
+            </field>
+        </record>
+
+
+    <record id="sale_advance_payment_inv_timesheet_view_form_cus" model="ir.ui.view">
+        <field name="name">sale_timesheet.sale.advance.payment.inv.view.form</field>
+        <field name="model">sale.advance.payment.inv</field>
+        <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/group//field[@name='advance_payment_method']" position="after">
+                <field name="payment_name" invisible="advance_payment_method not in  ['percentage','fixed']"/>
+            </xpath>
+
+        </field>
+    </record>
+
+
+<!--    <record model="ir.ui.view" id="account.partner_view_buttons">-->
+<!--            <field name="name">partner.view.buttons</field>-->
+<!--            <field name="model">res.partner</field>-->
+<!--            <field name="inherit_id" ref="base.view_partner_form" />-->
+<!--            <field name="priority" eval="11"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <div name="button_box" position="inside">-->
+<!--                    <button type="object" class="oe_stat_button" icon="fa-pencil-square-o" name="custom_action_view_partner_invoices"-->
+<!--                        groups="account.group_account_invoice,account.group_account_readonly"-->
+<!--                        context="{'default_partner_id': id}">-->
+<!--                        <div class="o_form_field o_stat_info">-->
+<!--                            <span class="o_stat_value">-->
+<!--                                <field name="currency_id" invisible="1"/>-->
+<!--                                <field name="cutom_total_invoiced" widget='monetary' options="{'currency_field': 'currency_id'}"/>-->
+<!--                            </span>-->
+<!--                            <span class="o_stat_text">Invoiced</span>-->
+<!--                        </div>-->
+<!--                    </button>-->
+<!--                </div>-->
+
+<!--                <page name="internal_notes" position="inside">-->
+<!--                    <group groups="account.group_account_invoice,account.group_account_readonly">-->
+<!--                        <group groups="account.group_warning_account" col="2">-->
+<!--                            <separator string="Warning on the Invoice" colspan="2"/>-->
+<!--                            <field name="invoice_warn" nolabel="1" colspan="2" required="1"/>-->
+<!--                            <field name="invoice_warn_msg" placeholder="Type a message..." colspan="2" nolabel="1"-->
+<!--                                invisible="invoice_warn in (False, 'no-message')"-->
+<!--                                required="invoice_warn and invoice_warn != 'no-message'"/>-->
+<!--                        </group>-->
+<!--                    </group>-->
+<!--                </page>-->
+<!--            </field>-->
+<!--        </record>-->
+</odoo>

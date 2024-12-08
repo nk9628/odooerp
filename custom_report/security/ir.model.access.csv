@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+custom_report.access_custom_section,access_custom_section,custom_report.model_custom_section,base.group_user,1,1,1,1
+custom_report.access_custom_subject,access_custom_subject,custom_report.model_custom_subject,base.group_user,1,1,1,1
+custom_report.access_custom_project,access_custom_project,custom_report.model_custom_project,base.group_user,1,1,1,1
+custom_report.access_custom_account,access_custom_account,custom_report.model_custom_account,base.group_user,1,1,1,1

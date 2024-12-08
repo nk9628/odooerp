@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- <record id="account.action_move_out_invoice_type" model="ir.actions.act_window">
+        <field name="domain">[('move_type', '=', 'out_invoice'), ('invoice_user_id', '=', uid)]</field>
+    </record> -->
+    <!-- <record id="purchase.purchase_rfq" model="ir.actions.act_window">
+        <field name="domain">[('user_id', '=', uid)]</field>
+    </record>
+    <record id="purchase.purchase_form_action" model="ir.actions.act_window">
+        <field name="domain">[('state','in',('purchase', 'done')), ('user_id', '=', uid)]</field>
+    </record> -->
+    <record id="view_move_form_inh" model="ir.ui.view">
+        <field name="name">account.move.form.inh</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page string="Customization" name="customization">
+                    <group>
+                        <group>
+                            <field name="show_section"/>
+                            <field name="show_subject"/>
+<!--                            <field name="show_prepared"/>-->
+<!--                            <field name="show_approved"/>-->
+                            <field name="show_project"/>
+                            <field name="creation_account"/>
+                            <field name="cus_signature"/>
+<!--                            <field name="stamp_signature"/>-->
+<!--                            <field name="name_signature"/>-->
+                        </group>
+                        <group>
+                            <field name="show_description"/>
+                            <field name="show_qty"/>
+                            <field name="show_rate"/>
+                            <field name="show_amount"/>
+                            <field name="show_taxes" invisible="1"/>
+                            <field name="show_slno" invisible="1"/>
+                            <field name="show_discount" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="cust_section" />
+                            <field name="greeting_text" />
+                            <field name="subject" />
+                            <field name="project" />
+                        </group>
+                        <group>
+                            <field name="acc_name" />
+                            <field name="bank_details" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_order_form_inh" model="ir.ui.view">
+        <field name="name">sale.order.form.inh</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[last()]" position="after">
+                <page string="Customization" name="customization">
+                    <group>
+                        <group>
+                            <field name="show_section"/>
+                            <field name="show_subject"/>
+<!--                            <field name="show_prepared"/>-->
+<!--                            <field name="show_approved"/>-->
+                            <field name="show_project"/>
+                            <field name="creation_account"/>
+                            <field name="cus_signature"/>
+<!--                            <field name="stamp_signature"/>-->
+<!--                            <field name="name_signature"/>-->
+                        </group>
+                        <group>
+                            <field name="show_description"/>
+                            <field name="show_qty"/>
+                            <field name="show_rate"/>
+                            <field name="show_amount"/>
+                            <field name="show_taxes" invisible="1"/>
+                            <field name="show_slno" invisible="1"/>
+                            <field name="show_discount"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="cust_section" />
+                            <field name="greeting_text" />
+                            <field name="subject" />
+                            <field name="project" />
+                        </group>
+                        <group>
+                            <field name="acc_name" />
+                            <field name="bank_details" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="purchase_order_form_inh_cust" model="ir.ui.view">
+        <field name="name">purchase.order.form.inh</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page[@name='purchase_delivery_invoice']" position="after">
+                <page string="Customization" name="customization">
+                    <group>
+                        <group>
+                            <field name="show_section"/>
+                            <field name="show_subject"/>
+<!--                            <field name="show_prepared"/>-->
+<!--                            <field name="show_approved"/>-->
+                            <field name="show_project"/>
+                             <field name="creation_account"/>
+                            <field name="cus_signature"/>
+                        </group>
+                        <group>
+                            <field name="show_description"/>
+                            <field name="show_qty"/>
+                            <field name="show_rate"/>
+                            <field name="show_amount"/>
+                            <field name="show_taxes" invisible="1"/>
+                            <field name="show_slno" invisible="1"/>
+                            <field name="show_discount" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="cust_section" />
+                            <field name="greeting_text" />
+                            <field name="subject" />
+                            <field name="project" />
+                        </group>
+                        <group>
+                            <field name="acc_name" />
+                            <field name="bank_details" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="custom_section_tree" model="ir.ui.view">
+        <field name="name">custom.section.tree</field>
+        <field name="model">custom.section</field>
+        <field name="arch" type="xml">
+            <tree string="Section">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record id="custom_section_form" model="ir.ui.view">
+        <field name="name">custom.section.form</field>
+        <field name="model">custom.section</field>
+        <field name="arch" type="xml">
+            <form string="Section">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="custom_subject_tree" model="ir.ui.view">
+        <field name="name">custom.subject.tree</field>
+        <field name="model">custom.subject</field>
+        <field name="arch" type="xml">
+            <tree string="Subject">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record id="custom_subject_form" model="ir.ui.view">
+        <field name="name">custom.subject.form</field>
+        <field name="model">custom.subject</field>
+        <field name="arch" type="xml">
+            <form string="Subject">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+        <record id="view_custom_project_kanban" model="ir.ui.view">
+            <field name="name">custom.project.kanban</field>
+            <field name="model">custom.project</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_custom">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_record">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_head">
+<!--                                            <div class="o_kanban_record_image">-->
+<!--                                                <div class="oe_avatar o_kanban_image">-->
+<!--                                                    <img t-if="record.image" t-att-src="'data:image/png;base64,%s' % record.image"/>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+                                            <div class="o_kanban_record_details">
+                                                <div class="o_kanban_record_name">
+                                                    <field name="name"/>
+                                                </div>
+                                                <div class="o_kanban_record_address">
+                                                    <div class="o_kanban_label_value_pair">
+                                                        <label for="customer_id" class="o_kanban_record_label">Customer:</label>
+                                                        <field name="customer_id"/>
+                                                    </div>
+                                                    <div class="o_kanban_label_value_pair">
+                                                        <label for="customer_street" class="o_kanban_record_label">Street:</label>
+                                                        <field name="customer_street"/>
+                                                    </div>
+                                                    <div class="o_kanban_label_value_pair">
+                                                        <label for="customer_city" class="o_kanban_record_label">City:</label>
+                                                        <field name="customer_city"/>
+                                                    </div>
+                                                    <div class="o_kanban_label_value_pair">
+                                                        <label for="customer_zip" class="o_kanban_record_label">ZIP:</label>
+                                                        <field name="customer_zip"/>
+                                                    </div>
+                                                    <div class="o_kanban_label_value_pair">
+                                                        <label for="customer_state_id" class="o_kanban_record_label">State:</label>
+                                                        <field name="customer_state_id"/>
+                                                    </div>
+                                                    <div class="o_kanban_label_value_pair">
+                                                        <label for="customer_country_id" class="o_kanban_record_label">Country:</label>
+                                                        <field name="customer_country_id"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+    <record id="custom_project_tree" model="ir.ui.view">
+        <field name="name">custom.project.tree</field>
+        <field name="model">custom.project</field>
+        <field name="arch" type="xml">
+            <tree string="Project">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record id="custom_project_form" model="ir.ui.view">
+        <field name="name">custom.project.form</field>
+        <field name="model">custom.project</field>
+        <field name="arch" type="xml">
+            <form string="Project">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_sale_orders" type="object" class="oe_stat_button" icon="fa-pencil-square-o" invisible="sale_count == 0">
+                            <field name="sale_count" widget="statinfo" string="Sale"/>
+                        </button>
+
+                        <button name="action_view_invoice" type="object" class="oe_stat_button" icon="fa-pencil-square-o" invisible="invoice_count == 0">
+                            <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                        </button>
+
+                        <button name="action_view_vendor_bill" type="object" class="oe_stat_button" icon="fa-pencil-square-o" invisible="vendor_bill_count == 0">
+                            <field name="vendor_bill_count" widget="statinfo" string="Vendor Bill"/>
+                        </button>
+
+
+                        <button name="action_view_purchase_orders" type="object" class="oe_stat_button" icon="fa-pencil-square-o" invisible="purchase_count == 0">
+                            <field name="purchase_count" widget="statinfo" string="Purchase"/>
+                        </button>
+
+
+                        <button name="view_due_amount" type="object" class="oe_stat_button" icon="fa-pencil-square-o">
+                            <field name="due_amount" widget="statinfo" string="Due"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                        <group>
+                            <field name="image" widget="image" class="oe_avatar" options="{'size': (100, 100)}"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="customer_id"/>
+                            <field name="customer_street"/>
+                            <field name="customer_city"/>
+                            <field name="customer_zip"/>
+                            <field name="customer_state_id"/>
+                            <field name="customer_country_id"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+     <record id="action_custom_project_tree" model="ir.actions.act_window">
+        <field name="name">Projects</field>
+        <field name="res_model">custom.project</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+    </record>
+
+
+
+
+    <menuitem id="menu_custom_project_tree" name="Projects" parent="sale.sale_menu_root" action="action_custom_project_tree"  sequence="30"/>
+
+
+    <record id="custom_account_tree" model="ir.ui.view">
+        <field name="name">custom.account.tree</field>
+        <field name="model">custom.account</field>
+        <field name="arch" type="xml">
+            <tree string="Account">
+                <field name="acc_name" />
+                <field name="bank_name" />
+                <field name="acc_number" />
+                <field name="acc_iban" />
+            </tree>
+        </field>
+    </record>
+    <record id="custom_account_form" model="ir.ui.view">
+        <field name="name">custom.account.form</field>
+        <field name="model">custom.account</field>
+        <field name="arch" type="xml">
+            <form string="Account">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="acc_name" />
+                            <field name="bank_name" />
+                            <field name="acc_number" />
+                            <field name="acc_iban" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
