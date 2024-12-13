@@ -68,6 +68,8 @@ class SaleOrder(models.Model):
         string='Filtered Sale Order Lines',
         compute='_compute_sale_order_lines',
     )
+    
+    project = fields.Char(string="Project")
 
     @api.depends('related_orders')
     def _compute_sale_order_lines(self):
